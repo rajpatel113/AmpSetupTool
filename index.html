@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amplifier Setup Calculator</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Amplifier Setup Calculator</h1>
+    
+    <!-- Amplifier Selection -->
+    <div class="form-group">
+      <label for="ampType">Select Amplifier Type:</label>
+      <select id="ampType" class="form-control">
+        <option value="BLE100">BLE100</option>
+        <option value="MB100">MB100</option>
+        <option value="BTD100">BTD100</option>
+      </select>
+    </div>
+
+    <!-- Channel Input Levels -->
+    <div class="input-section mb-4">
+      <h3>Input Channel Levels</h3>
+      <div class="form-group">
+        <label for="ch15">Channel 15:</label>
+        <input type="number" id="ch15" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="ch30">Channel 30:</label>
+        <input type="number" id="ch30" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="ch68">Channel 68:</label>
+        <input type="number" id="ch68" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="ch110">Channel 110:</label>
+        <input type="number" id="ch110" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="ch135">Channel 135:</label>
+        <input type="number" id="ch135" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="ch158">Channel 158:</label>
+        <input type="number" id="ch158" class="form-control" required>
+      </div>
+      <button class="btn btn-primary" onclick="calculateEQ()">Calculate EQ and Pad</button>
+    </div>
+
+    <!-- Result Section -->
+    <div id="results" class="mt-4">
+      <h3>Results</h3>
+      <p id="eqValue"></p>
+      <p id="padValue"></p>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- JavaScript Logic -->
+  <script>
+function calculateEQ() {
+  const ampType = document.getElementById("ampType").value;
+  const ch15 = parseFloat(document.getElementById("ch15").value);
+  const ch30 = parseFloat(document.getElementById("ch30").value);
+  const ch68 = parseFloat(document.getElementById("ch68").value);
+  const ch110 = parseFloat(document.getElementById("ch110").value);
+  const ch135 = parseFloat(document.getElementById("ch135").value);
+  const ch158 = parseFloat(document.getElementById("ch158").value);
+
+  // Step 1: Calculate Delta
+  let delta = ch15 - ch158;
+
+  // Adjust Delta for all amplifier types
+  if (["BLE100", "BTD100", "MB100"].includes(ampType)) {
+    delta += 4;
+  }
+
+  // Lookup tables for SFE and SCS values
+  const sfeOptions = [
+    { delta: 15.5, value: 22 }, // SFE-100-22
+    { delta: 13.6, value: 20 }, // SFE-100-20
+    { delta: 12.5, value: 18 }, // SFE-100-18
+    { delta: 10.8, value: 16 }, // SFE-100-16
+    { delta: 9.5, value: 14 },  // SFE-100-14
+    { delta: 8.5, value: 12 },  // SFE-100-12
+    { delta: 7.2, value: 10 },  // SFE-100-10
+    { delta: 6.1, value: 8 },   // SFE-100-08
+    { delta: 4.3, value: 6 },   // SFE-100-06
+    { delta: 3.4, value: 4 },   // SFE-100-04
+    { delta: 2.0, value: 2 },   // SFE-100-02
+    { delta: 0.0, value: 0 }    // SFE-100-00
+  ];
+
+  const scsOptions = [
+    { delta: -1.4, value: 2 },  // SCS-100-2
+    { delta: -3.2, value: 4 },  // SCS-100-4
+    { delta: -4.8, value: 6 },  // SCS-100-6
+    { delta: -6.8, value: 8 },  // SCS-100-8
+    { delta: -8.1, value: 10 }, // SCS-100-10
+    { delta: -9.0, value: 12 }, // SCS-100-12
+    { delta: -10.3, value: 14 } // SCS-100-14
+  ];
+
+  let eqType, eqValue;
+
+  // Step 2: Determine the closest EQ or CS based on Delta, including delta = 0 case
+  if (delta === 0) {
+    eqType = "SFE";
+    eqValue = 0; // SFE-100-00
+  } else if (delta >= 2) {
+    eqType = "SFE";
+    eqValue = sfeOptions.reduce((prev, curr) => Math.abs(curr.delta - delta) < Math.abs(prev.delta - delta) ? curr : prev).value;
+  } else {
+    eqType = "SCS";
+    eqValue = scsOptions.reduce((prev, curr) => Math.abs(curr.delta - delta) < Math.abs(prev.delta - delta) ? curr : prev).value;
+  }
+
+  // Lookup tables for EQ cut values
+  const eqCutAtCh15Lookup = {
+    "SFE-22": 16.1, "SFE-20": 14.2, "SFE-18": 13.0, "SFE-16": 11.2,
+    "SFE-14": 10.0, "SFE-12": 9.0, "SFE-10": 7.7, "SFE-08": 6.6,
+    "SFE-06": 4.8, "SFE-04": 3.9, "SFE-02": 2.5, "SFE-00": 0.0,
+  };
+
+  const csCutAtCh15Lookup = {
+    "SCS-2": 1.5, "SCS-4": 1.5, "SCS-6": 1.6, "SCS-8": 2.1,
+    "SCS-10": 2.2, "SCS-12": 2.4, "SCS-14": 2.7
+  };
+
+  // Step 3: Find the EQ/CS Cut at Channel 15
+  let eqCutAtCh15 = eqType === "SFE" ? eqCutAtCh15Lookup[`${eqType}-${eqValue}`] : csCutAtCh15Lookup[`${eqType}-${eqValue}`];
+
+  // Step 4: Determine the Recommended Input for the Selected Amplifier
+  let recommendedInput = ampType === "BLE100" ? 9 : 8;
+
+  // Step 5: Calculate the First Pad Value
+  let padValue = eqCutAtCh15 - recommendedInput;
+  if (padValue < 0) {
+    padValue = 0; // Use 0 dB if the result is negative
+  }
+
+  // Step 6: Display Results
+  document.getElementById("eqValue").textContent = `Recommended ${eqType} Value: ${eqType}-100-${eqValue}`;
+  document.getElementById("padValue").textContent = `Recommended Pad Value: ${padValue} dB`;
+}
+
+  </script>
+</body>
+</html>
