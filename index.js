@@ -165,7 +165,7 @@ function openCableLossCalculator() {
     let recommendedInput = ampType === "BLE100" ? 9 : 8; // BLE100 requires 9 dBmV, MB100 and BTD100 require 8 dBmV
 
     // Step 6: Calculate the First Pad Value
-    let padValue = recommendedInput - eqCutAtCh15 - ch15;
+    let padValue = ch15 - recommendedInput - eqCutAtCh15 ;
     if (padValue < 0) {
       padValue = 0; // Use 0 dB if the result is negative
     }
