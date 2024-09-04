@@ -183,11 +183,12 @@ function calculateEQ() {
     };
 
     // Step 4: Find the lowest input channel
-    const lowestInputChannel = Math.min(ch15, ch110, ch135, ch158);
-    const lowestChannelKey = 
-        lowestInputChannel === ch15 ? "ch15" : 
-        lowestInputChannel === ch110 ? "ch110" : 
-        lowestInputChannel === ch135 ? "ch135" : "ch158" ;
+const channelValues = [ch15, ch110, ch135, ch158];
+const channelKeys = ["ch15", "ch110", "ch135", "ch158"];
+
+const lowestInputChannel = Math.min(...channelValues);
+const lowestChannelIndex = channelValues.indexOf(lowestInputChannel);
+const lowestChannelKey = channelKeys[lowestChannelIndex];
     // Step 5: Determine the recommended input level based on the lowest channel for BLE100
     let recommendedInput;
     if (ampType === "BLE100") {
