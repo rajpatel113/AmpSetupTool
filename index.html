@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amplifier Setup Tool</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="index.css" rel="stylesheet">
+  <!-- Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Amplifier Setup Tool</h1>
+
+    <!-- Dark Mode Toggle and Cable Loss Calculator Button -->
+    <div class="d-flex mb-3">
+      <button class="btn btn-dark-mode mr-2" onclick="toggleDarkMode()"><i class="fas fa-moon"></i>Toggle Dark Mode</button>
+      <button class="btn btn-primary" onclick="openCableLossCalculator()"><i class="fas fa-calculator"></i>Cable Loss Calculator</button>
+    </div>
+
+    <!-- Amplifier Selection -->
+    <div class="form-group">
+      <label for="ampType">Select Amplifier Type:</label>
+      <select id="ampType" class="form-control" onchange="setPresetValues();">
+        <option value="BLE100">BLE100</option>
+        <option value="MB100">MB100</option>
+        <option value="BTD100">BTD100</option>
+      </select>
+    </div>
+
+    <!-- Delta Selection -->
+    <div class="form-group">
+      <label for="deltaType">Select Delta Calculation:</label>
+      <select id="deltaType" class="form-control">
+        <option value="Ch15-158">Ch15 - Ch158</option>
+        <option value="Ch15-110">Ch15 - Ch110</option>
+        <option value="Ch15-135">Ch15 - Ch135</option>
+      </select>
+    </div>
+
+    <!-- Channel Input Levels -->
+    <div class="input-section mb-4">
+      <h3>Input Channel Levels</h3>
+      <div class="form-group">
+        <label for="ch15">Channel 15:</label>
+        <input type="number" id="ch15" class="form-control" required max="99">
+      </div>
+      <div class="form-group">
+        <label for="ch30">Channel 30:</label>
+        <input type="number" id="ch30" class="form-control" required max="99">
+      </div>
+      <div class="form-group">
+        <label for="ch68">Channel 68:</label>
+        <input type="number" id="ch68" class="form-control" required max="99">
+      </div>
+      <div class="form-group">
+        <label for="ch110">Channel 110:</label>
+        <input type="number" id="ch110" class="form-control" required max="99">
+      </div>
+      <div class="form-group">
+        <label for="ch135">Channel 135:</label>
+        <input type="number" id="ch135" class="form-control" required max="99">
+      </div>
+      <div class="form-group">
+        <label for="ch158">Channel 158:</label>
+        <input type="number" id="ch158" class="form-control" required max="99">
+      </div>
+    </div>
+
+    <!-- Calculate Button -->
+    <button class="btn btn-success mb-3" onclick="calculateEQ()"><i class="fas fa-cogs"></i> Calculate</button>
+
+    <!-- Error Messages -->
+    <div id="errorMessages" class="text-danger"></div>
+
+    <!-- Result Section -->
+    <div id="results" class="mt-4">
+      <h3>Results</h3>
+      <p id="eqValue"></p>
+      <p id="padValue"></p>
+      <p id="tiltWarning" class="text-danger"></p>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer>
+    Created by <a href="https://www.linkedin.com/in/raj-patel-8a2888229/" target="_blank">Raj Patel</a>, Version 5.0
+  </footer>
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="index.js"></script>
+</body>
+</html>
