@@ -17,8 +17,8 @@
 
     <!-- Dark Mode Toggle and Cable Loss Calculator Button -->
     <div class="d-flex mb-3">
-      <button class="btn btn-dark-mode mr-2" onclick="toggleDarkMode()"><i class="fas fa-moon"></i>Toggle Dark Mode</button>
-      <button class="btn btn-primary" onclick="openCableLossCalculator()"><i class="fas fa-calculator"></i>Cable Loss Calculator</button>
+      <button class="btn btn-dark-mode mr-2" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Toggle Dark Mode</button>
+      <button class="btn btn-primary" onclick="openCableLossCalculator()"><i class="fas fa-calculator"></i> Cable Loss Calculator</button>
     </div>
 
     <!-- Amplifier Selection -->
@@ -83,11 +83,17 @@
       <p id="padValue"></p>
       <p id="tiltWarning" class="text-danger"></p>
     </div>
+
+    <!-- ADU Instructions and Result Section -->
+    <div id="aduInstructions" class="mt-4"></div>
+    <div id="aduResults" class="mt-2"></div>
   </div>
+  
   <!-- Footer -->
   <footer>
-    Developed by <a href="https://www.linkedin.com/in/raj-patel-8a2888229/" target="_blank">Raj Patel</a>, Version 5.0
+    Created by <a href="https://www.linkedin.com/in/raj-patel-8a2888229/" target="_blank">Raj Patel</a>, Version 5.0
   </footer>
+
   <!-- Bootstrap JS and dependencies -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
