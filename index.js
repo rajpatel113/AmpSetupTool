@@ -4,7 +4,7 @@ function toggleDarkMode() {
     document.querySelector(".container").classList.toggle("dark-mode");
 }
 
-// Button for Cableloss Website
+// Button for Cable Loss Website
 function openCableLossCalculator() {
     window.open('https://rajpatel113.github.io/CableLossCalculator/', '_blank');
 }
@@ -165,78 +165,37 @@ function calculateEQ() {
             "SCS-2": 1.5,   "SCS-4": 1.5,   "SCS-6": 1.6,   "SCS-8": 2.1,
             "SCS-10": 2.2,  "SCS-12": 2.4,  "SCS-14": 2.7
         },
- ch110: {
-  "SFE-22": 5.1,
-  "SFE-20": 4.7,
-  "SFE-18": 4.0,
-  "SFE-16": 3.5,
-  "SFE-14": 3.1,
-  "SFE-12": 3.0,
-  "SFE-10": 2.8,
-  "SFE-08": 2.5,
-  "SFE-06": 1.8,
-  "SFE-04": 1.8,
-  "SFE-02": 1.4,
-  "SFE-00": 0.0,
-  "SCS-2": 2.9,
-  "SCS-4": 4.7,
-  "SCS-6": 6.4,
-  "SCS-8": 8.9,
-  "SCS-10": 10.3,
-  "SCS-12": 11.5,
-  "SCS-14": 13.0
- },
- ch135: {
-  "SFE-22": 2.8,
-  "SFE-20": 2.4,
-  "SFE-18": 2.3,
-  "SFE-16": 1.9,
-  "SFE-14": 1.8,
-  "SFE-12": 1.7,
-  "SFE-10": 1.7,
-  "SFE-08": 1.6,
-  "SFE-06": 1.1,
-  "SFE-04": 1.1,
-  "SFE-02": 0.9,
-  "SFE-00": 0.0,
-  "SCS-2": 3.0,
-  "SCS-4": 5.1,
-  "SCS-6": 6.9,
-  "SCS-8": 9.7,
-  "SCS-10": 11.5,
-  "SCS-12": 12.9,
-  "SCS-14": 14.9
- },
- ch158: {
-  "SFE-22": 0.6,
-  "SFE-20": 0.6,
-  "SFE-18": 0.5,
-  "SFE-16": 0.5,
-  "SFE-14": 0.5,
-  "SFE-12": 0.5,
-  "SFE-10": 0.5,
-  "SFE-08": 0.5,
-  "SFE-06": 0.5,
-  "SFE-04": 0.5,
-  "SFE-02": 0.5,
-  "SFE-00": 0.0,
-  "SCS-2": 3.0,
-  "SCS-4": 5.5,
-  "SCS-6": 7.3,
-  "SCS-8": 9.9,
-  "SCS-10": 12.2,
-  "SCS-12": 13.8,
-  "SCS-14": 16.3
- }
+        ch110: {
+            "SFE-22": 5.1, "SFE-20": 4.7, "SFE-18": 4.0, "SFE-16": 3.5,
+            "SFE-14": 3.1, "SFE-12": 3.0, "SFE-10": 2.8, "SFE-08": 2.5,
+            "SFE-06": 1.8, "SFE-04": 1.8, "SFE-02": 1.4, "SFE-00": 0.0,
+            "SCS-2": 2.9,  "SCS-4": 4.7,  "SCS-6": 6.4,  "SCS-8": 8.9,
+            "SCS-10": 10.3, "SCS-12": 11.5, "SCS-14": 13.0
+        },
+        ch135: {
+            "SFE-22": 2.8, "SFE-20": 2.4, "SFE-18": 2.3, "SFE-16": 1.9,
+            "SFE-14": 1.8, "SFE-12": 1.7, "SFE-10": 1.7, "SFE-08": 1.6,
+            "SFE-06": 1.1, "SFE-04": 1.1, "SFE-02": 0.9, "SFE-00": 0.0,
+            "SCS-2": 3.0,  "SCS-4": 5.1,  "SCS-6": 6.9,  "SCS-8": 9.7,
+            "SCS-10": 11.5, "SCS-12": 12.9, "SCS-14": 14.9
+        },
+        ch158: {
+            "SFE-22": 0.6, "SFE-20": 0.6, "SFE-18": 0.5, "SFE-16": 0.5,
+            "SFE-14": 0.5, "SFE-12": 0.5, "SFE-10": 0.5, "SFE-08": 0.5,
+            "SFE-06": 0.5, "SFE-04": 0.5, "SFE-02": 0.5, "SFE-00": 0.0,
+            "SCS-2": 3.0,  "SCS-4": 5.5,  "SCS-6": 7.3,  "SCS-8": 9.9,
+            "SCS-10": 12.2, "SCS-12": 13.8, "SCS-14": 16.3
+        }
     };
 
     // Step 4: Find the lowest input channel
-const channelValues = [ch15, ch110, ch135, ch158];
-const channelKeys = ["ch15", "ch110", "ch135", "ch158"];
+    const channelValues = [ch15, ch110, ch135, ch158];
+    const channelKeys = ["ch15", "ch110", "ch135", "ch158"];
 
-const lowestInputChannel = Math.min(...channelValues);
-const lowestChannelIndex = channelValues.indexOf(lowestInputChannel);
-const lowestChannelKey = channelKeys[lowestChannelIndex];
+    const lowestInputChannel = Math.min(...channelValues);
+    const lowestChannelIndex = channelValues.indexOf(lowestInputChannel);
+    const lowestChannelKey = channelKeys[lowestChannelIndex];
+
     // Step 5: Determine the recommended input level based on the lowest channel for BLE100
     let recommendedInput;
     if (ampType === "BLE100") {
@@ -258,12 +217,55 @@ const lowestChannelKey = channelKeys[lowestChannelIndex];
 
     // Step 7: Calculate the Pad Value
     let padValue = lowestInputChannel - recommendedInput - insertionLoss;
-    padValue = Math.round(padValue); // Round up to the nearest digit
-    if (padValue < 0) {
-        padValue = 0; // Use 0 dB if the result is negative
-      }
+    padValue = Math.max(0, Math.round(padValue)); // Ensure pad value is non-negative
 
     // Step 8: Display Results
     document.getElementById("eqValue").textContent = `Recommended ${eqType} Value: ${eqType}-100-${eqValue}`;
     document.getElementById("padValue").textContent = `Recommended Pad Value: ${padValue} dB`;
+
+    // After displaying EQ and Pad results, prompt for ADU pad calculation
+    startADUPadCalculation();
+}
+
+// Function to start ADU Pad calculation
+function startADUPadCalculation() {
+    // Step 1: Show instructions for ADU adjustment
+    const aduInstructions = `
+        <p><strong>1. Adjust the output levels of the amplifier by adjusting the pad in the MID/INTERSTAGE location until the output levels align to recommended output levels +/- 3 dB. If MB or BT, confirm the outputs on all active ports to ensure equal gain.</strong></p>
+        <p><strong>2. Please enter the output level on Channel 110 (in dBmV):</strong></p>
+        <input type="number" id="ch110OutputLevel" class="form-control" required max="99">
+        <button class="btn btn-success mt-2" onclick="calculateADUPad()"><i class="fas fa-cogs"></i> Calculate ADU Pad</button>
+    `;
+    document.getElementById("aduInstructions").innerHTML = aduInstructions;
+}
+
+// Function to calculate ADU Pad
+function calculateADUPad() {
+    const ampType = document.getElementById("ampType").value;
+    const ch110OutputLevel = parseFloat(document.getElementById("ch110OutputLevel").value);
+
+    let aduPadValue;
+    if (isNaN(ch110OutputLevel)) {
+        document.getElementById("aduResults").innerHTML = `<p class="text-danger">Please enter a valid output level for Channel 110.</p>`;
+        return;
+    }
+
+    // Perform calculation based on amplifier type
+    if (ampType === "BLE100" || ampType === "BTD100") {
+        aduPadValue = ch110OutputLevel - 42; // Subtract 42 for BLE or BT
+    } else if (ampType === "MB100") {
+        aduPadValue = ch110OutputLevel - 37; // Subtract 37 for MB
+    } else {
+        document.getElementById("aduResults").innerHTML = `<p class="text-danger">Invalid amplifier type selected.</p>`;
+        return;
+    }
+
+    // Ensure ADU pad value is not below 0
+    aduPadValue = Math.max(0, Math.round(aduPadValue)); // Set to 0 if calculated value is below 0
+
+    // Show the ADU Pad result
+    document.getElementById("aduResults").innerHTML = `
+        <p>Recommended ADU Pad Value: ${aduPadValue} dB</p>
+        <p><strong>3. Finally, move the “MAN” “AUTO” jumper to “AUTO” and adjust the ADU Potentiometer control to reset the channels to the same power levels in manual mode.</strong></p>
+    `;
 }
