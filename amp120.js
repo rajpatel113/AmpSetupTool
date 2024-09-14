@@ -318,4 +318,6 @@ function calculateEQ120() {
     // Step 8: Display Results
     document.getElementById("eqValue12").textContent = `Recommended ${eqType} Value: ${eqType}-120-${eqValue}`;
     document.getElementById("padValue12").textContent = `Recommended Pad Value: ${padValue} dB`;
+    document.getElementById("aduInstructions12").textContent = "As the 120/204 amps ADUs also compensates the return path, the return setup must be completed before enabling and adjusting the ADU.";
+}
 }
