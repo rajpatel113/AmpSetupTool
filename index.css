@@ -63,48 +63,31 @@ h1 {
     background-color: #218838;
     border-color: #1e7e34;
 }
-
-/* Hover Effects and Transitions */
-.form-group input,
-.form-group select {
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-    padding: 10px;
-    transition: box-shadow 0.3s ease;
+/* Nav Tabs */
+.nav-tabs .nav-link {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+    color: #007bff;
 }
 
-.form-group input:focus,
-.form-group select:focus {
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    outline: none;
+.nav-tabs .nav-link.active {
+    background-color: white;
+    color: #007bff;
+    border-color: #dee2e6 #dee2e6 #fff;
 }
 
-/* Icons */
-button.btn i {
-    margin-right: 5px;
+/* Dark Mode Nav Tabs */
+body.dark-mode .nav-tabs .nav-link {
+    background-color: #343a40;
+    color: #ffffff;
+    border-color: #666f79;
 }
 
-/* Results */
-#results {
-    margin-top: 20px;
+body.dark-mode .nav-tabs .nav-link.active {
+    background-color: #495057;
+    color: #ffffff;
+    border-color: #666f79 #666f79 #495057;
 }
-
-#results h3 {
-    color: #28a745;
-}
-
-#eqValue,
-#padValue {
-    font-size: 1.2rem;
-    margin: 10px 0;
-}
-
-/* Error Messages */
-#errorMessages {
-    font-size: 1rem;
-    color: #dc3545;
-}
-
 /* Dark Mode */
 body.dark-mode {
     background-color: #343a40;
@@ -141,6 +124,20 @@ body.dark-mode {
     background-color: #ffc107;
     color: black;
 }
+
+/* Dark Mode Toggle Button */
+#darkModeToggle .fa-sun {
+    display: none;
+}
+
+body.dark-mode #darkModeToggle .fa-moon {
+    display: none;
+}
+
+body.dark-mode #darkModeToggle .fa-sun {
+    display: inline;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     h1 {
