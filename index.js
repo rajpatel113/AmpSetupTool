@@ -1,7 +1,19 @@
 // Function to toggle dark mode
 function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
-    document.querySelector(".container").classList.toggle("dark-mode");
+    const body = document.body;
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    body.classList.toggle('dark-mode');
+    
+    const moonIcon = darkModeToggle.querySelector('.fa-moon');
+    const sunIcon = darkModeToggle.querySelector('.fa-sun');
+    
+    if (body.classList.contains('dark-mode')) {
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'inline';
+    } else {
+        moonIcon.style.display = 'inline';
+        sunIcon.style.display = 'none';
+    }
 }
 
 // Button for Cable Loss Website
@@ -9,9 +21,9 @@ function openCableLossCalculator() {
     window.open('https://rajpatel113.github.io/CableLossCalculator/', '_blank');
 }
 
-// Function to set preset values based on the amplifier type
-function setPresetValues() {
-    const ampType = document.getElementById("ampType").value;
+// Function to set preset values based on the amplifier type for 1 GHz
+function setPresetValues1() {
+    const ampType = document.getElementById("ampType1").value;
     if (ampType === "BLE100") {
         document.getElementById("recommendedTilt").textContent = "Recommended Tilt: 4 dB";
     } else {
@@ -19,14 +31,14 @@ function setPresetValues() {
     }
 }
 
-// Function to validate input values
-function validateInputs() {
-    const ampType = document.getElementById("ampType").value;
-    const ch15 = parseFloat(document.getElementById("ch15").value);
-    const ch110 = parseFloat(document.getElementById("ch110").value);
-    const ch135 = parseFloat(document.getElementById("ch135").value);
-    const ch158 = parseFloat(document.getElementById("ch158").value);
-    const errorMessages = document.getElementById("errorMessages");
+// Function to validate input values for 1 GHz
+function validateInputs1() {
+    const ampType = document.getElementById("ampType1").value;
+    const ch15 = parseFloat(document.getElementById("ch15_1").value);
+    const ch110 = parseFloat(document.getElementById("ch110_1").value);
+    const ch135 = parseFloat(document.getElementById("ch135_1").value);
+    const ch158 = parseFloat(document.getElementById("ch158_1").value);
+    const errorMessages = document.getElementById("errorMessages1");
 
     let errors = [];
 
@@ -59,18 +71,18 @@ function validateInputs() {
     errorMessages.innerHTML = errors.join("<br>");
 }
 
-// Function to calculate the EQ and Pad values
-function calculateEQ() {
+// Function to calculate the EQ and Pad values for 1 GHz
+function calculateEQ1() {
     // Step 1: Validate input values
-    validateInputs();
+    validateInputs1();
 
-    const ampType = document.getElementById("ampType").value;
-    const deltaType = document.getElementById("deltaType").value;
-    const ch15 = parseFloat(document.getElementById("ch15").value);
-    const ch110 = parseFloat(document.getElementById("ch110").value);
-    const ch135 = parseFloat(document.getElementById("ch135").value);
-    const ch158 = parseFloat(document.getElementById("ch158").value);
-    const tiltWarning = document.getElementById("tiltWarning");
+    const ampType = document.getElementById("ampType1").value;
+    const deltaType = document.getElementById("deltaType1").value;
+    const ch15 = parseFloat(document.getElementById("ch15_1").value);
+    const ch110 = parseFloat(document.getElementById("ch110_1").value);
+    const ch135 = parseFloat(document.getElementById("ch135_1").value);
+    const ch158 = parseFloat(document.getElementById("ch158_1").value);
+    const tiltWarning = document.getElementById("tiltWarning1");
 
     // Step 2: Calculate Delta based on selected delta type
     let delta;
@@ -85,7 +97,7 @@ function calculateEQ() {
         default:
             delta = ch15 - ch158;
             break;
-    }  
+    }
 
     // Adjust Delta for BLE100 amplifier type
     if (ampType === "BLE100") {
@@ -220,10 +232,8 @@ function calculateEQ() {
     padValue = Math.max(0, Math.round(padValue)); // Ensure pad value is non-negative
 
     // Step 8: Display Results
-    document.getElementById("eqValue").textContent = `Recommended ${eqType} Value: ${eqType}-100-${eqValue}`;
-    document.getElementById("padValue").textContent = `Recommended Pad Value: ${padValue} dB`;
-
-    // After displaying EQ and Pad results, prompt for ADU pad calculation
+    document.getElementById("eqValue1").textContent = `Recommended ${eqType} Value: ${eqType}-100-${eqValue}`;
+    document.getElementById("padValue1").textContent = `Recommended Pad Value: ${padValue} dB`;
     startADUPadCalculation();
 }
 
@@ -236,17 +246,17 @@ function startADUPadCalculation() {
         <input type="number" id="ch110OutputLevel" class="form-control" required max="99">
         <button class="btn btn-success mt-2" onclick="calculateADUPad()"><i class="fas fa-cogs"></i> Calculate ADU Pad</button>
     `;
-    document.getElementById("aduInstructions").innerHTML = aduInstructions;
+    document.getElementById("aduInstructions1").innerHTML = aduInstructions;
 }
 
 // Function to calculate ADU Pad
 function calculateADUPad() {
-    const ampType = document.getElementById("ampType").value;
+    const ampType = document.getElementById("ampType1").value;
     const ch110OutputLevel = parseFloat(document.getElementById("ch110OutputLevel").value);
 
     let aduPadValue;
     if (isNaN(ch110OutputLevel)) {
-        document.getElementById("aduResults").innerHTML = `<p class="text-danger">Please enter a valid output level for Channel 110.</p>`;
+        document.getElementById("aduResults1").innerHTML = `<p class="text-danger">Please enter a valid output level for Channel 110.</p>`;
         return;
     }
 
@@ -256,7 +266,7 @@ function calculateADUPad() {
     } else if (ampType === "MB100") {
         aduPadValue = ch110OutputLevel - 37; // Subtract 37 for MB
     } else {
-        document.getElementById("aduResults").innerHTML = `<p class="text-danger">Invalid amplifier type selected.</p>`;
+        document.getElementById("aduResults1").innerHTML = `<p class="text-danger">Invalid amplifier type selected.</p>`;
         return;
     }
 
@@ -264,7 +274,7 @@ function calculateADUPad() {
     aduPadValue = Math.max(0, Math.round(aduPadValue)); // Set to 0 if calculated value is below 0
 
     // Show the ADU Pad result
-    document.getElementById("aduResults").innerHTML = `
+    document.getElementById("aduResults1").innerHTML = `
         <p>Recommended ADU Pad Value: ${aduPadValue} dB</p>
         <p><strong>3. Finally, move the “MAN” “AUTO” jumper to “AUTO” and adjust the ADU Potentiometer control to reset the channels to the same power levels in manual mode.</strong></p>
     `;
